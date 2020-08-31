@@ -18,12 +18,12 @@
   "bugs": {
     "url": "https://github.com/RobotSong/learn-javascript/issues"
   },
-  "homepage": "https://github.com/RobotSong/learn-javascript#readme",
+  "homepage": "https://github.com/RobotSong/learn-javascript#readnpmme",
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "html-webpack-plugin": "^4.3.0",
     "ts-loader": "^8.0.2",
-    "typescript": "^3.9.7",
+    "typescript": "^4.0.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
