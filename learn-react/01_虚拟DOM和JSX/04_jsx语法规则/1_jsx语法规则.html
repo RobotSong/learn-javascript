@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用 jsx 创建虚拟DOM</title>
+
+    <style>
+        .title {
+            background: aqua;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 准备一个容器 -->
+    <div id="test" style="font-size: 50px"></div>
+    <!-- 引入 React 核心库 -->
+    <script src="../../js/16.0/react.development.js"></script>
+    <!-- 引入 react-dom， 用于 react 操作 dom -->
+    <script src="../../js/16.0/react-dom.development.js"></script>
+    <!-- 引入 babel， 用于将 jsx 转换为 js -->
+    <script src="../../js/16.0/babel.min.js"></script>
+
+    <!-- 一定要写 text/babel -->
+    <script type="text/babel">
+        /**
+         * jsx (全称 javascript xml) 语法规则:
+         * 1). 定义虚拟DOM 时，不需要写引号，否则是一个字符串对象
+         * 2). 标签中，混入JSX 表达式时， 需要使用变量时，使用 {}
+         * 3). 样式的类名 不要用 class 属性， 要使用 className 属性
+         * 4). 内联样式要用 style={ {} } ,例如: style={{marginRight: spacing + 'em'}}
+         * 5). 只能有一个 根标签
+         * 6). 标签必须闭合
+         * 7). 标签首字母
+         *      a). 如果标签首字母是小写，会吧该标签转为 html 中同名元素，如果查找不到，会警告
+         *      Warning: The tag <hello> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+         *     in hello
+         *     in div
+         *      b). 如果标签首字母是大写， react 就去渲染对应的组件，如果组件未定义，则会直接报错
+         *      Inline Babel script:29 Uncaught ReferenceError: Hello is not defined
+         *
+         */
+        let id = 'title'
+        let content = 'Hello,World!'
+        // 1. 创建虚拟 DOM
+        const VDOM = (
+            <div>
+                <h1 id={id} className="title">
+                    <span style={ {color: 'white', fontSize: '32px'} }>{content}</span>
+                </h1>
+                <h1>Your name</h1>
+                <label>
+                    <input />
+                </label>
+                <hello>123</hello>
+                {
+                  /** <Hello>123</Hello> 如果组件未定义，则会报错 */
+                }
+            </div>
+        ) // jsx 语法
+        console.log(VDOM)
+
+        // 2. 渲染虚拟 DOM 到页面
+        ReactDOM.render(VDOM, document.getElementById('test'))
+    </script>
+</body>
+</html>
