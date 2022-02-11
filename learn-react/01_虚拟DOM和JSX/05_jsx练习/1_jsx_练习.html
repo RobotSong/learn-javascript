@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsx练习</title>
+
+</head>
+<body>
+
+    <!-- 准备一个容器 -->
+    <div id="root"></div>
+    <!-- 引入 React 核心库 -->
+    <script src="../../js/16.0/react.development.js"></script>
+    <!-- 引入 react-dom， 用于 react 操作 dom -->
+    <script src="../../js/16.0/react-dom.development.js"></script>
+    <!-- 引入 babel， 用于将 jsx 转换为 js -->
+    <script src="../../js/16.0/babel.min.js"></script>
+
+    <!-- 一定要写 text/babel -->
+    <script type="text/babel">
+        const a = 1
+        const b = 2
+        /**
+         * 一定要注意区分: js 语句 和 js 表达式
+         * 表达式: 一个表达式可能会产生一个值。可以放在任何一个需要的地方
+         *      例如:
+         *      1. a
+         *      2. a + b
+         *      3. fn(a, b)
+         *      4. Array.map() // 返回映射后的数据
+         *      5. function a () { }
+         * 语句:
+         *   1. for () {}
+         *   2. if ()
+         *   3. switch() {}
+         */
+        // 模拟数据
+        let data = ['吃饭', '睡觉', '打豆豆']
+        // 1. 创建虚拟 DOM
+        const VDOM = (
+            <div>
+                <h1>TodoList</h1>
+                <ul>
+                    {
+                        data.map((item, i) => {
+                            return <li key={i}>{item}</li>
+                        })
+                    }
+                </ul>
+            </div>
+        ) // jsx 语法
+        console.log(VDOM)
+
+        // 2. 渲染虚拟 DOM 到页面
+        ReactDOM.render(VDOM, document.getElementById('root'))
+    </script>
+</body>
+</html>
