@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>演示函数柯里化</title>
+</head>
+<body>
+
+    <script>
+        function sum(a) {
+            return (b) => {
+                return (c) => {
+                    return a + b + c
+                }
+            }
+        }
+
+        console.log(sum(1)(2)(3))
+    </script>
+</body>
+</html>
