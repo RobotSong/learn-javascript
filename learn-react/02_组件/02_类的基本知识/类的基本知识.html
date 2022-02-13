@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>类的基本知识</title>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/javascript">
+        class Person {
+            // 构造方法
+            constructor(name, age) {
+                this.name = name
+                this.age = age
+            }
+
+            speak() {
+                // speak 方法在类的原型对象上，供实例调用
+                // 通过 Person 实例调用 speak 方法， speak 中的 this 就是 Person 实例
+                console.log(`我的名字是:${this.name}， 年龄是：${this.age}`)
+            }
+        }
+
+        // 创建一个 Student 类，继承 Person 类
+
+        class Student extends Person {
+            constructor(name, age, grade) {
+                super(name, age);
+                this.grade = grade
+            }
+
+            speak() {
+                console.log(`我的名字是:${this.name}， 年龄是：${this.age}，成绩是: ${this.grade}`)
+            }
+        }
+
+        let p = new Person('Tom', 17)
+
+        console.log(p)
+
+        p.speak()
+
+        let s = new Student('Son', 10, 80)
+        console.log(s)
+        s.speak()
+
+
+    </script>
+</body>
+</html>
