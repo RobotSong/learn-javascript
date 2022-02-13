@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>类组件中的方法中的this指向</title>
+</head>
+<body>
+
+    <!-- 准备一个容器 -->
+    <div id="root"></div>
+    <!-- 引入 React 核心库 -->
+    <script src="../../js/16.0/react.development.js"></script>
+    <!-- 引入 react-dom， 用于 react 操作 dom -->
+    <script src="../../js/16.0/react-dom.development.js"></script>
+    <!-- 引入 babel， 用于将 jsx 转换为 js -->
+    <script src="../../js/16.0/babel.min.js"></script>
+
+    <!-- 一定要写 text/babel -->
+    <script type="text/babel">
+        // 1. 天气组件
+        class Weather extends React.Component {
+
+            state = {
+                isHot: true,
+                wind: '大风'
+            }
+
+            // 使用赋值语句，可以将方法添加到实例本身，而不是类的原型上面
+            // 自定义的方法 -- 要用赋值语句 + 箭头函数 （解决  this 指向问题，箭头函数没有 this ，会向上同级寻找 this ）
+            changeHot = () => {
+                this.setState({
+                  isHot: !this.state.isHot
+                })
+            }
+
+            render() {
+                const { isHot, wind } = this.state
+                return (
+                    <h1 onClick={this.changeHot}>今天天气很{isHot ? '炎热' : '凉爽'}， {wind}</h1>
+                )
+            }
+        }
+
+        // 2. 把组件渲染到页面上
+        ReactDOM.render(<Weather />, document.getElementById('root'))
+
+    </script>
+</body>
+</html>

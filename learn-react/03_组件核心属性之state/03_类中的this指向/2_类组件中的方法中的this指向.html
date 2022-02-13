@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>类组件中的方法中的this指向</title>
+</head>
+<body>
+
+    <!-- 准备一个容器 -->
+    <div id="root"></div>
+    <!-- 引入 React 核心库 -->
+    <script src="../../js/16.0/react.development.js"></script>
+    <!-- 引入 react-dom， 用于 react 操作 dom -->
+    <script src="../../js/16.0/react-dom.development.js"></script>
+    <!-- 引入 babel， 用于将 jsx 转换为 js -->
+    <script src="../../js/16.0/babel.min.js"></script>
+
+    <!-- 一定要写 text/babel -->
+    <script type="text/babel">
+        // 1. 天气组件
+        class Weather extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    isHot: true
+                }
+            }
+
+            changeHot() {
+                // changeHot 方法在类的原型对象上，供实例调用
+                // 通过 Weather 实例调用 changeHot 方法， changeHot 中的 this 就是 Weather 实例
+                // 当 React onClick 绑定事件中，没有写 this.changeHot.bind(this) 的时候
+                // 所以当 onClick 点击的时候， changeHot 方法是作为一个 函数变量执行的， 直接调用
+                // 类中的方法默认开始局部的严格模式，所以当类内部调用 changeHot 方法的时候， this 就是默认 undefined
+                console.log(this)
+            }
+
+            render() {
+                const { isHot } = this.state
+                // onClick 绑定事件时，不需要加 ()， 否则渲染的时候就执行了
+                // 把函数对象传递给 react ， 而不是执行后的函数
+                return (
+                    <h1 id={'title'}  onClick={this.changeHot}>今天天气很{isHot ? '炎热' : '凉爽'}</h1>
+                )
+            }
+        }
+
+        // 2. 把组件渲染到页面上
+        ReactDOM.render(<Weather />, document.getElementById('root'))
+        // 绑定事件
+        let h1 = document.getElementById('title')
+        h1.addEventListener('click', () => {
+            alert('点击事件')
+        })
+
+    </script>
+</body>
+</html>

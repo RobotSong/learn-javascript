@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>类中的this指向</title>
+</head>
+<body>
+
+    <script>
+        class Person {
+            constructor(name, age) {
+                this.name = name
+                this.age = age
+            }
+
+            speak() {
+                // speak 方法在类的原型对象上，供实例调用
+                // 通过 Person 实例调用 speak 方法， speak 中的 this 就是 Person 实例
+                // 通过把实例中的方法赋值给一个变量时，在类中，方法会默认开启局部的严格模式. 所以 this 是 undefined
+                console.log(this)
+                console.log(`我是：${this.name}，年龄：${this.age}`)
+            }
+        }
+
+        let p = new Person('Tom', 18)
+        p.speak()
+
+        // 把实例中的方法赋值给一个变量
+        let speak = p.speak
+        // speak() // 通过变量调用方法， this 是 undefined
+
+        function demo() {
+            'use strict'
+            console.log(this)
+        }
+        demo()
+    </script>
+</body>
+</html>
