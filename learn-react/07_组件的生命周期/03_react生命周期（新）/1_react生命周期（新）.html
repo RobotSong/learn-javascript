@@ -2,39 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>react 生命周期（旧）</title>
+    <title>react生命周期（新）</title>
 </head>
 <body>
     <!-- 准备一个容器 -->
     <div id="root"></div>
     <!-- 引入 React 核心库 -->
-    <script src="../../js/16.0/react.development.js"></script>
+    <script src="../../js/17.01/react.development.js"></script>
     <!-- 引入 react-dom， 用于 react 操作 dom -->
-    <script src="../../js/16.0/react-dom.development.js"></script>
+    <script src="../../js/17.01/react-dom.development.js"></script>
     <!-- 引入 babel， 用于将 jsx 转换为 js -->
-    <script src="../../js/16.0/babel.min.js"></script>
+    <script src="../../js/17.01/babel.min.js"></script>
     <!-- 引入 prop-types, 用于对 props 进行类型验证 -->
-    <script src="../../js/16.0/prop-types.js"></script>
+    <script src="../../js/17.01/prop-types.js"></script>
     <!-- 一定要写 text/babel -->
     <script type="text/babel">
         /**
          * 1. 初始化阶段： 由 ReactDOM.render() 触发 --- 初次渲染
          *  1)。constructor()
-         *  2). componentWillMount()
+         *  2). static getDerivedStateFromProps()
          *  3). render()  ===> 必不可少的。必须要用，渲染组件
          *  4). componentDidMount() ===> 常用 一般在这个函数中做一些初始化的事情，
          *  例如： 发送网络请求、订阅消息，开启定时器
          *
          * 2. 更新阶段： 由组件内部 this.setState() 或 父组件 render 触发
          *   一、正常更新
-         *      1). shouldComponentUpdate()
-         *      2). componentWillUpdate()
+         *      1). static getDerivedStateFromProps()
+         *      2). shouldComponentUpdate()
          *      3). render()
+         *      4). getSnapshotBeforeUpdate()
          *      4). componentDidUpdate()
          *   二、强制更新， 由组件内部 this.forceUpdate() 触发
-         *      1). componentWillUpdate()
+         *      1). static getDerivedStateFromProps()
          *      2). render()
-         *      3). componentDidUpdate()
+         *      3). getSnapshotBeforeUpdate()
+         *      4). componentDidUpdate()
          *
          *  3. 卸载组件： 由 ReactDOM.unmountComponentAtNode() 触发
          *    1). componentWillUnmount() ===> 常用
@@ -70,11 +72,6 @@
                 this.forceUpdate()
             }
 
-            // 组件将要挂载的钩子
-            componentWillMount() {
-                console.log('Count --- componentWillMount')
-            }
-
             // 组件挂载完毕的钩子
             componentDidMount() {
                 console.log('Count --- componentDidMount')
@@ -88,17 +85,28 @@
             // 控制组件更新的“开关”
             shouldComponentUpdate(nextProps, nextState) {
                 console.log('Count --- shouldComponentUpdate')
-                return tr
-            }
-
-            // 组件将要更新
-            componentWillUpdate(nextProps, nextState) {
-                console.log('Count --- componentWillUpdate')
+                return true
             }
 
             // 组件更新完成的钩子
-            componentDidUpdate(nextProps, nextState) {
-                console.log('Count --- componentDidUpdate')
+            componentDidUpdate(prevProps, prevState, snapshot) {
+                console.log('Count --- componentDidUpdate, snapshot:', snapshot)
+            }
+
+            // 从 props 中获取派生的 state
+            static getDerivedStateFromProps(props, state) {
+                console.log('Count --- static getDerivedStateFromProps', props, state)
+                if (state.count === 0 && props.count > 9) {
+                    state.count = props.count
+                    return state
+                }
+                return null
+            }
+
+            // 在更新之前获取一个快照
+            getSnapshotBeforeUpdate(prevProps, prevState) {
+                console.log('Count --- getSnapshotBeforeUpdate', prevProps, prevState)
+                return 'hello'
             }
 
             render() {
@@ -115,67 +123,7 @@
             }
         }
 
-        // 定义 A 组件 --- 父组件
-        class A extends React.Component {
-            // 初始化状态
-            state = {
-                carName: '宝驰'
-            }
-
-            changeCar = () => {
-                this.setState({
-                    carName: '奔马'
-                })
-            }
-
-            render() {
-                return (
-                    <div>
-                        <h3>我是A组件</h3>
-                        <button onClick={this.changeCar}>换车</button>
-                        <B carName={this.state.carName} />
-                    </div>
-                )
-            }
-        }
-
-        // 定义 B 组件 --- 子组件
-        class B extends React.Component {
-
-            // 组件将要接收 新的props 的钩子 <---> 第一次接收 props 的时候， 不会执行，只有 props 更新后才会触发
-            componentWillReceiveProps(nextProps) {
-                console.log('B <---> componentWillReceiveProps', nextProps)
-            }
-
-            // 控制组件更新的“开关”
-            shouldComponentUpdate(nextProps, nextState) {
-                console.log('B --- shouldComponentUpdate')
-                return true
-            }
-
-            // 组件将要更新
-            componentWillUpdate(nextProps, nextState) {
-                console.log('B --- componentWillUpdate')
-            }
-
-            // 组件更新完成的钩子
-            componentDidUpdate(nextProps, nextState) {
-                console.log('B --- componentDidUpdate')
-            }
-
-            render() {
-                console.log('B --- render')
-
-                return (
-                    <div>
-                        <h3>我是B组件</h3>
-                        <p>我的车是: {this.props.carName}</p>
-                    </div>
-                )
-            }
-        }
-        // 挂载组件到容器
-        ReactDOM.render(<A />, document.getElementById('root'))
+        ReactDOM.render(<Count />, document.getElementById('root'))
     </script>
 </body>
 </html>
