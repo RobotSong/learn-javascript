@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>react生命周期（新）</title>
+</head>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root"></div>
+    <!-- 引入 React 核心库 -->
+    <script src="../../js/17.01/react.development.js"></script>
+    <!-- 引入 react-dom， 用于 react 操作 dom -->
+    <script src="../../js/17.01/react-dom.development.js"></script>
+    <!-- 引入 babel， 用于将 jsx 转换为 js -->
+    <script src="../../js/17.01/babel.min.js"></script>
+    <!-- 引入 prop-types, 用于对 props 进行类型验证 -->
+    <script src="../../js/17.01/prop-types.js"></script>
+    <!-- 一定要写 text/babel -->
+    <script type="text/babel">
+        /**
+         * 1. 初始化阶段： 由 ReactDOM.render() 触发 --- 初次渲染
+         *  1)。constructor()
+         *  2). componentWillMount()
+         *  3). render()  ===> 必不可少的。必须要用，渲染组件
+         *  4). componentDidMount() ===> 常用 一般在这个函数中做一些初始化的事情，
+         *  例如： 发送网络请求、订阅消息，开启定时器
+         *
+         * 2. 更新阶段： 由组件内部 this.setState() 或 父组件 render 触发
+         *   一、正常更新
+         *      1). shouldComponentUpdate()
+         *      2). componentWillUpdate()
+         *      3). render()
+         *      4). componentDidUpdate()
+         *   二、强制更新， 由组件内部 this.forceUpdate() 触发
+         *      1). componentWillUpdate()
+         *      2). render()
+         *      3). componentDidUpdate()
+         *
+         *  3. 卸载组件： 由 ReactDOM.unmountComponentAtNode() 触发
+         *    1). componentWillUnmount() ===> 常用
+         *      一般在这个函数中，做一些收尾的事情，
+         *      例如：关闭定时器、取消订阅消息
+         */
+        // 1. 定义组件
+        class Count extends React.Component {
+
+            // 构造器
+            constructor(props) {
+                super(props);
+                // 初始化状态
+                this.state = {
+                    count: 0
+                }
+                console.log('Count --- constructor')
+            }
+
+            add = () => {
+                let { count } = this.state
+                this.setState({
+                    count: count+1
+                })
+            }
+
+            unMount = () => {
+                ReactDOM.unmountComponentAtNode(document.getElementById('root'))
+            }
+
+            // 强制更新按钮的回调
+            force = () => {
+                this.forceUpdate()
+            }
+
+            // 组件挂载完毕的钩子
+            componentDidMount() {
+                console.log('Count --- componentDidMount')
+            }
+
+            // 组件将要卸载的钩子
+            componentWillUnmount() {
+                console.log('Count --- componentWillUnmount')
+            }
+
+            // 控制组件更新的“开关”
+            shouldComponentUpdate(nextProps, nextState) {
+                console.log('Count --- shouldComponentUpdate')
+                return true
+            }
+
+            // 组件更新完成的钩子
+            componentDidUpdate(prevProps, prevState, snapshot) {
+                console.log('Count --- componentDidUpdate, snapshot:', snapshot)
+            }
+
+            // 从 props 中获取派生的 state
+            static getDerivedStateFromProps(props, state) {
+                console.log('Count --- static getDerivedStateFromProps', props, state)
+                if (state.count === 0 && props.count > 9) {
+                    state.count = props.count
+                    return state
+                }
+                return null
+            }
+
+            // 在更新之前获取一个快照
+            getSnapshotBeforeUpdate(prevProps, prevState) {
+                console.log('Count --- getSnapshotBeforeUpdate', prevProps, prevState)
+                return 'hello'
+            }
+
+            render() {
+                console.log('Count --- render')
+                let { count } = this.state
+                return (
+                    <div>
+                        <h2>当前求和为：{count}</h2>
+                        <button onClick={this.add}>点我+1</button>
+                        <button onClick={this.unMount}>点击卸载</button>
+                        <button onClick={this.force}>不更改状态,强制更新</button>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<Count />, document.getElementById('root'))
+    </script>
+</body>
+</html>
