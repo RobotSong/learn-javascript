@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件处理</title>
+</head>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root"></div>
+    <!-- 引入 React 核心库 -->
+    <script src="../../js/16.0/react.development.js"></script>
+    <!-- 引入 react-dom， 用于 react 操作 dom -->
+    <script src="../../js/16.0/react-dom.development.js"></script>
+    <!-- 引入 babel， 用于将 jsx 转换为 js -->
+    <script src="../../js/16.0/babel.min.js"></script>
+    <!-- 引入 prop-types, 用于对 props 进行类型验证 -->
+    <script src="../../js/16.0/prop-types.js"></script>
+    <!-- 一定要写 text/babel -->
+    <script type="text/babel">
+        /**
+         * 1. 通过 onXxx 属性指定事件处理函数 (注意大小写)
+         *  1). React 使用的是自定义（合成）事件，而不是使用的原生 DOM 事件   --- 兼容性
+         *  2). React 中的事件是通过事件委托方法处理的（委托给组件最外层的元素）  --- 为了更高效
+         * 2. 通过 event.target 得到发生时间的 DOM 元素对象
+         */
+        class Demo extends React.Component {
+            myRef = React.createRef()
+
+            myRef2 = React.createRef()
+
+            state = {
+                isHot: false
+            }
+
+            // 显示左侧输入框的数据
+            showData = () => {
+                // let { input1 } = this
+                // alert(input1.value)
+
+                console.log(this.myRef)
+                alert(this.myRef.current.value)
+            }
+
+            showData2 = (event) => {
+                alert(event.target.value)
+            }
+
+            render() {
+
+                let { isHot } = this.state
+
+                return (
+                    <div>
+                        <input ref={this.myRef} type="text" placeholder="点击按钮显示数据"/>&nbsp;
+                        <button onClick={this.showData}>点击显示左侧数据</button>&nbsp;
+                        <input onBlur={this.showData2} type="text" placeholder="失去焦点显示数据"/>&nbsp;
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<Demo />, document.getElementById('root'))
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对props进行限制</title>
+</head>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root"></div>
+    <!-- 引入 React 核心库 -->
+    <script src="../../js/16.0/react.development.js"></script>
+    <!-- 引入 react-dom， 用于 react 操作 dom -->
+    <script src="../../js/16.0/react-dom.development.js"></script>
+    <!-- 引入 babel， 用于将 jsx 转换为 js -->
+    <script src="../../js/16.0/babel.min.js"></script>
+    <!-- 引入 prop-types, 用于对 props 进行类型验证 -->
+    <script src="../../js/16.0/prop-types.js"></script>
+    <!-- 一定要写 text/babel -->
+    <script type="text/babel">
+        class Person extends React.Component {
+            render() {
+                // props 是只读的，不能修改
+                // Inline Babel script:5 Uncaught TypeError: Cannot assign to read only property 'name' of object '#<Object>'
+                // this.props.name = 'Jack' // 会报错
+                console.log(this)
+                return (
+                    <div>
+                        <ul>
+                            <li>姓名：{this.props.name}</li>
+                            <li>性别：{this.props.sex}</li>
+                            <li>年龄：{this.props.age+1}</li>
+                        </ul>
+                    </div>
+                )
+            }
+        }
+
+        // 对标签属性进行类型和必要性的限制
+        Person.propTypes = {
+            name: PropTypes.string.isRequired,
+            age: PropTypes.number.isRequired,
+            sex: PropTypes.string,
+            speak: PropTypes.func
+        }
+        // 设置标签属性的默认值
+        Person.defaultProps = {
+            sex: '保密'
+        }
+
+        let p = {
+            name: 'Tom',
+            age: 17
+        }
+
+        let p2 = {
+            name: 'Jason',
+            age: 27
+        }
+
+        function speak() {
+            console.log('speak');
+        }
+
+        // 展示运算符(...)展开对象，只能在标签组件通过属性传递 props 的时候使用
+        ReactDOM.render((
+            <div>
+                <Person {...p} speak={speak} />
+                <Person {...p2} />
+            </div>
+        ), document.getElementById('root'))
+    </script>
+</body>
+</html>

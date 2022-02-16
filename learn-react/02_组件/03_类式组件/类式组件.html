@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>类式组件</title>
+</head>
+<body>
+
+    <!-- 准备一个容器 -->
+    <div id="root"></div>
+    <!-- 引入 React 核心库 -->
+    <script src="../../js/16.0/react.development.js"></script>
+    <!-- 引入 react-dom， 用于 react 操作 dom -->
+    <script src="../../js/16.0/react-dom.development.js"></script>
+    <!-- 引入 babel， 用于将 jsx 转换为 js -->
+    <script src="../../js/16.0/babel.min.js"></script>
+
+    <!-- 一定要写 text/babel -->
+    <script type="text/babel">
+        // 1. 创建类式组件
+        class MyComponent extends React.Component {
+
+            render() {
+                // render 放在 MyComponent 类的原型对象上， 供实例调用
+                // render 中的 this 是谁?  MyComponent
+
+                console.log(this)
+                // 有状态的组件 就是复杂组件
+                return (
+                    <h2>我是用类定义的组件，适用于复杂组件的定义</h2>
+                )
+            }
+        }
+
+        ReactDOM.render(<MyComponent />, document.getElementById('root'))
+    </script>
+</body>
+</html>

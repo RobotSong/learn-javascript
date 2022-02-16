@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>getSnapshotBeforeUpdate案例</title>
+
+    <style>
+        .list {
+            width: 200px;
+            height: 150px;
+            background: aqua;
+            overflow: auto;
+        }
+
+        .news {
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root"></div>
+    <!-- 引入 React 核心库 -->
+    <script src="../../js/17.01/react.development.js"></script>
+    <!-- 引入 react-dom， 用于 react 操作 dom -->
+    <script src="../../js/17.01/react-dom.development.js"></script>
+    <!-- 引入 babel， 用于将 jsx 转换为 js -->
+    <script src="../../js/17.01/babel.min.js"></script>
+    <!-- 引入 prop-types, 用于对 props 进行类型验证 -->
+    <script src="../../js/17.01/prop-types.js"></script>
+    <!-- 一定要写 text/babel -->
+    <script type="text/babel">
+        // 1. 创建组件
+        class NesList extends React.Component {
+
+            state = {
+                newsList: []
+            }
+
+            // 组件挂载之后更新数据
+            componentDidMount() {
+                setInterval(() => {
+                    // 获取原来的数据
+                    let { newsList } = this.state
+                    let news = `新闻${newsList.length + 1}`
+                    this.setState({newsList: [news, ...newsList]})
+                },1000)
+            }
+
+            getSnapshotBeforeUpdate() {
+                // 组件更新之前的高度
+                return this.list.scrollHeight
+            }
+
+            // 组件更新之后的钩子
+            componentDidUpdate(props, state, oldHeight) {
+                // 组件更新之后的高度
+                let newHeight = this.list.scrollHeight
+                // scrollTop 需要改变的值
+                this.list.scrollTop += newHeight - oldHeight
+            }
+
+            render() {
+                return (
+                    <div className="list" ref={ c => this.list = c}>
+                        {
+                            this.state.newsList.map((news, index) => {
+                                return <div className="news" key={index}>{news}</div>
+                            })
+                        }
+                    </div>
+                )
+            }
+        }
+
+        // 挂载组件
+        ReactDOM.render(<NesList />, document.getElementById('root'))
+
+
+    </script>
+</body>
+</html>

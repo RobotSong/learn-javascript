@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件核心属性state</title>
+</head>
+<body>
+
+    <!-- 准备一个容器 -->
+    <div id="root"></div>
+    <!-- 引入 React 核心库 -->
+    <script src="../../js/16.0/react.development.js"></script>
+    <!-- 引入 react-dom， 用于 react 操作 dom -->
+    <script src="../../js/16.0/react-dom.development.js"></script>
+    <!-- 引入 babel， 用于将 jsx 转换为 js -->
+    <script src="../../js/16.0/babel.min.js"></script>
+
+    <!-- 一定要写 text/babel -->
+    <script type="text/babel">
+        // 1. 天气组件
+        class Weather extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    isHot: true
+                }
+            }
+
+            changeHot() {
+                this.setState({
+                    isHot: !this.state.isHot
+                })
+            }
+
+            render() {
+                const { isHot } = this.state
+                return (
+                    <h1 onClick={this.changeHot.bind(this)}>今天天气很{isHot ? '炎热' : '凉爽'}</h1>
+                )
+            }
+        }
+
+        // 2. 把组件渲染到页面上
+        ReactDOM.render(<Weather />, document.getElementById('root'))
+    </script>
+</body>
+</html>

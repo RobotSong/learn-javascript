@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>受控组件</title>
+</head>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root"></div>
+    <!-- 引入 React 核心库 -->
+    <script src="../../js/16.0/react.development.js"></script>
+    <!-- 引入 react-dom， 用于 react 操作 dom -->
+    <script src="../../js/16.0/react-dom.development.js"></script>
+    <!-- 引入 babel， 用于将 jsx 转换为 js -->
+    <script src="../../js/16.0/babel.min.js"></script>
+    <!-- 引入 prop-types, 用于对 props 进行类型验证 -->
+    <script src="../../js/16.0/prop-types.js"></script>
+    <!-- 一定要写 text/babel -->
+    <script type="text/babel">
+        /***
+         * 受控组件：随着你的输入维护状态，表单数据由状态维护
+         * 推荐使用受控组件，不推荐使用非受控组件 ，refs
+         */
+        // 1、 创建组件
+        class Login extends React.Component {
+            // 初始化状态
+            state = {
+                username: '',
+                password: ''
+            }
+
+            // 处理表单提交
+            handleSubmit = (event) => {
+                event.preventDefault()
+                let {username, password} = this.state
+                alert(`用户名：${username}，密码是 ${password}`)
+            }
+
+            saveUsername = (event) => {
+                this.setState({
+                    username: event.target.value
+                })
+            }
+
+            savePassword = (event) => {
+                this.setState({
+                    password: event.target.value
+                })
+            }
+
+            render() {
+                return (
+                    <form onSubmit={this.handleSubmit}>
+                        用户名: <input onChange={this.saveUsername} type="text" name="username"/> <br/>
+                        密码：<input onChange={this.savePassword} type="password" name="password" /> <br/>
+                        <button>登录</button>
+                    </form>
+                )
+            }
+        }
+
+        ReactDOM.render(<Login />, document.getElementById('root'))
+    </script>
+</body>
+</html>

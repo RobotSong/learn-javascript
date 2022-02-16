@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>验证diifing算法</title>
+</head>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root"></div>
+    <!-- 引入 React 核心库 -->
+    <script src="../../js/17.01/react.development.js"></script>
+    <!-- 引入 react-dom， 用于 react 操作 dom -->
+    <script src="../../js/17.01/react-dom.development.js"></script>
+    <!-- 引入 babel， 用于将 jsx 转换为 js -->
+    <script src="../../js/17.01/babel.min.js"></script>
+    <!-- 引入 prop-types, 用于对 props 进行类型验证 -->
+    <script src="../../js/17.01/prop-types.js"></script>
+    <!-- 一定要写 text/babel -->
+    <script type="text/babel">
+        class Time extends React.Component {
+            state = {
+                date: new Date()
+            }
+
+            componentDidMount() {
+                setInterval(() => {
+                    this.setState({
+                        date: new Date()
+                    })
+                }, 1000)
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h1>Hello</h1>
+                        <label>
+                            <input type="text" />
+                        </label>
+                        <span>
+                            现在是: {this.state.date.toTimeString()}
+                            <input type="text" />
+                        </span>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<Time />, document.getElementById('root'))
+    </script>
+</body>
+</html>
