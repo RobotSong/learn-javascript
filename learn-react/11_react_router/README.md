@@ -25,5 +25,6 @@
 2. match 对象
 3. withRouter 函数
 
-### 基本路由使用
+### 自定义组件的时候
 
+标签体的内容作为一个特殊的 props 传递给组件， key 是 children， value 是标签体的内容
