@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用hook函数</title>
+</head>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root"></div>
+    <!-- 引入 React 核心库 -->
+    <script src="../../js/17.01/react.development.js"></script>
+    <!-- 引入 react-dom， 用于 react 操作 dom -->
+    <script src="../../js/17.01/react-dom.development.js"></script>
+    <!-- 引入 babel， 用于将 jsx 转换为 js -->
+    <script src="../../js/17.01/babel.min.js"></script>
+    <!-- 引入 prop-types, 用于对 props 进行类型验证 -->
+    <script src="../../js/17.01/prop-types.js"></script>
+    <!-- 一定要写 text/babel -->
+    <script type="text/babel">
+        function Example(props) {
+            // 每次重新渲染时，都会重新调用函数
+            console.log('每次渲染都会调用函数，接收到的属性:', props)
+            console.log('使用 useState 返回的对象数组:', React.useState('123'))
+            const [count, setCount] = React.useState(0)
+
+            // 相当于 componentDidMount 和 componentDidUpdate
+            React.useEffect(() => {
+                console.log('useEffect')
+                // 使用浏览器的 API 更新页面标题
+                document.title = `You clicked ${count} times`
+            })
+
+            // 只能在函数最外层调用 Hook。不要在循环、条件判断或者子函数中调用。
+            //  下面的语句 会出现以下问题 : Warning: React has detected a change in the order of Hooks called by Example.
+            //  This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks:
+            // 和 Uncaught Error: Rendered more hooks than during the previous render.
+            // if (count > 0) {
+            //     React.useEffect(() => {
+            //         console.log('在条件判断中调用 useEffect!')
+            //     })
+            // }
+
+            // 第二个函数使用空数组[]作为参数时, 只会调用一次, 相当于 componentDidMount
+            React.useEffect(() => {
+                // 为什么要在 effect 中返回一个函数？ 这是 effect 可选的清除机制。每个 effect
+                // 都可以返回一个清除函数。如此可以将添加和移除订阅的逻辑放在一起。它们都属于 effect 的一部分。
+                console.log(`第二个 useEffect 函数，你点击的次数为: ${count}`)
+                // 10 秒后卸载组件
+                setTimeout(() => {
+                    ReactDOM.unmountComponentAtNode(document.getElementById('root'))
+                }, 1000 * 10)
+                // 返回的 函数, 相当于 componentWillUnmount
+                return () => {
+                    console.log('useEffect 模拟 componentWillUnmount 效果，组件即将卸载!')
+                }
+            }, [])
+
+            return (
+                <div>
+                    <p>你点击的次数:{count}</p>
+                    <button onClick={()　=> {
+                        // 当用户点击按钮后，我们传递一个新的值给 setCount。React 会重新渲染 Example 组件，并把最新的 count 传给它。
+                        setCount(count + 1)
+                    }}>
+                        点击我
+                    </button>
+                </div>
+            )
+        }
+        ReactDOM.render(<Example a={123} />, document.getElementById('root'))
+    </script>
+</body>
+</html>
