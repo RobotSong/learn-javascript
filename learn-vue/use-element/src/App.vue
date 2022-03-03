@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <MulSelect />
+    <h1>我的日历</h1>
+    <TaskCalendar />
   </div>
 </template>
 
 <script>
-import MulSelect from "@/components/MulSelect.vue";
+import TaskCalendar from "@/components/TaskCalendar";
 
 export default {
   name: 'App',
   components: {
-    MulSelect
+    TaskCalendar
   }
 }
 </script>
