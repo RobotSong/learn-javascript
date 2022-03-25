@@ -1,0 +1,463 @@
+*, :after, :before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    line-height: 1.5;
+    text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background: rgb(237, 237, 237);
+}
+
+.pay-app {
+    font-family: Avenir,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+}
+
+.header {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    height: 1.173333rem;
+    padding: 0.666667rem;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.header-text {
+    width: calc(100% - 1.6rem);
+    line-height: .666667rem;
+    text-align: left;
+    height: 0.666667rem;
+    font-size: .48rem;
+    font-family: PingFang SC,PingFang SC-Medium;
+    font-weight: 500;
+    color: #323232;
+    letter-spacing: .013333rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.header-img {
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    width: 1.066667rem;
+    height: 1.066667rem;
+    border-radius: 0.533333rem;
+    overflow: hidden;
+}
+
+img {
+    border-style: none;
+}
+
+.header-img img {
+    width: 100%;
+    height: 100%;
+}
+
+.plus-input {
+    padding-top: 0.8rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -webkit-box-pack: safe;
+    -ms-flex-pack: safe;
+    justify-content: safe;
+    margin: 0 auto;
+    border-bottom: 0.013333rem solid #ccc;
+    width: calc(100vw - 1.86667rem);
+    min-width: 2.133333rem;
+    height: 2.4rem;
+}
+
+.plus-input .S {
+    position: relative;
+    width: 0.4rem;
+    height: 0.533333rem;
+    margin: 0.2rem 0.2rem 0.2rem 0;
+}
+
+.plus-input .S img {
+    position: absolute;
+    top: 0.2rem;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.ttt {
+    width: 0.053333rem;
+}
+
+.input-c, .ttt {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 1.306667rem;
+    font-size: .933333rem;
+    font-family: wxFirstFont SC,PingFang SC,PingFang SC-Medium;
+    font-weight: 800;
+    text-align: center;
+    color: #000;
+    letter-spacing: .026667rem;
+    border: none;
+    outline: none;
+    background-color: hsla(0,0%,92.9%,0);
+}
+
+.input-c-div {
+    position: relative;
+    margin: 0rem;
+    width: auto;
+    height: 0.88rem;
+    -webkit-animation: blink 1s linear infinite;
+    animation: blink 1s linear infinite;
+    border: 0.013333rem solid #07c160;
+}
+
+.input-c-div-1 {
+    width: 0.48rem;
+    padding-left: 0.026667rem;
+    text-align: center;
+    float: right;
+}
+
+.input-c-div, .input-c-div-1 {
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+
+.placeholder {
+    color: #6b6b6b;
+    font-weight: 400;
+    text-align: left;
+    padding-top: 0.053333rem;
+    font-size: .8rem;
+}
+
+.plus-ul {
+    margin-top: 0.266667rem;
+    margin-bottom: 0;
+    padding: 0.4rem;
+    width: 100%;
+}
+
+.plus-li {
+    margin-bottom: 0.266667rem;
+    border-radius: 0.2rem;
+}
+
+.plus-ul li {
+    position: relative;
+    background: #fafafa;
+    padding: 0.546667rem 0.4rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.img-div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row;
+    flex-flow: row;
+}
+
+.img-div img {
+    width: 0.56rem;
+    height: 0.56rem;
+    margin-right: 0.4rem;
+}
+
+.img-div .div-text {
+    height: 0.56rem;
+    font-size: .4rem;
+    font-family: PingFang SC,PingFang SC-Medium;
+    font-weight: 500;
+    text-align: left;
+    color: #323232;
+    letter-spacing: .013333rem;
+}
+
+.div-go {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row;
+    flex-flow: row;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.div-go-div {
+    margin-right: 0.133333rem;
+    font-size: .36rem;
+    font-family: PingFang SC,PingFang SC-Medium;
+    font-weight: 500;
+    text-align: right;
+    color: grey;
+    letter-spacing: .013333rem;
+}
+
+.div-go img {
+    width: 0.4rem;
+    height: 0.4rem;
+}
+
+.border-radius-top {
+    border-radius: 0.2rem 0.2rem 0 0;
+}
+
+.pitch-on, .pitch-on-ok {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.pitch-on {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row;
+    flex-flow: row;
+}
+
+.pitch-on-ok {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-radius: 0.28rem;
+    width: 0.56rem;
+    height: 0.56rem;
+    background: #11c930;
+}
+
+.pitch-on-ok img {
+    width: 0.293333rem;
+    height: 0.213333rem;
+}
+
+.pitch-on-on {
+    border-radius: 0.28rem;
+    width: 0.56rem;
+    height: 0.56rem;
+    background: rgba(17,201,48,0);
+    border: 0.013333rem solid #bfbfbf;
+}
+
+.xian {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: calc(100% - 1.37333rem);
+    height: 0.013333rem;
+    background: #ebebeb;
+}
+
+.keyboard-plus {
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+.keyboard {
+    position: relative;
+    background-color: #fff;
+}
+
+.keyboard-top {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+    height: .8rem;
+    background: #fafafa;
+    border: .013333rem solid #e1e2e6;
+    border-bottom-width: 0;
+}
+
+.triangle-topleft-k {
+    width: 2.666667rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+.keyboard-tite {
+    font-size: .293333rem;
+    font-family: wxFirstFont SC,PingFang SC,PingFang SC-Medium;
+    font-weight: 500;
+    text-align: center;
+    color: #bbbdbf;
+    letter-spacing: .013333rem;
+}
+
+.triangle-topleft {
+    margin-top: -.2rem;
+    margin-right: .4rem;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 0;
+    height: 0;
+    border-bottom: .24rem solid #b2b2b2;
+    border-left: .24rem solid transparent;
+}
+
+.keyboard-main {
+    width: 100%;
+}
+
+.keyborad-key {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: wrap;
+    flex-flow: wrap;
+}
+
+.keyboard-main .number {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 25%;
+    height: 1.333333rem;
+    background: #fafafa;
+    border: .013333rem solid #e1e2e6;
+    border-bottom: none;
+    border-left: none;
+    font-size: .746667rem;
+    font-family: PingFang SC,PingFang SC-Medium;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.333333rem;
+    color: #242526;
+    letter-spacing: .026667rem;
+}
+
+.keyboard-main .zero {
+    width: 50%;
+}
+
+.paymentConceal, .payment {
+    bottom: 0;
+    right: 0;
+    height: 4rem;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 25vw;
+    background: #07c160;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.opacityS {
+    opacity: .6;
+}
+
+.paymentConceal div, .payment div {
+    width: 100%;
+    font-size: .48rem;
+    font-family: PingFang SC,PingFang SC-Medium;
+    font-weight: 500;
+    text-align: center;
+    color: #fff;
+    letter-spacing: .013333rem;
+}
+
+.paymentConceal {
+    right: .4rem;
+    top: -2.4rem;
+    height: 2rem;
+    border-radius: .133333rem;
+}
+
+
+.number img {
+    margin: 0;
+    padding: 0;
+    height: .493333rem;
+    width: .68rem;
+}
+
+.dot {
+    width: .08rem;
+    height: .08rem;
+    border-radius: .04rem;
+    background-color: #242526!important;
+}
+/** 实现光标动画闪烁 */
+@-webkit-keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <h1>我的日历</h1>
-    <TaskCalendar />
+    <AmountInput />
   </div>
 </template>
 
 <script>
-import TaskCalendar from "@/components/TaskCalendar";
+import AmountInput from "@/components/AmountInput";
 
 export default {
   name: 'App',
   components: {
-    TaskCalendar
+    AmountInput
   }
 }
 </script>
