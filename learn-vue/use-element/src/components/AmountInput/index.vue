@@ -202,6 +202,19 @@ export default {
           return
         }
       }
+      // 输入的第一个数字，如果是 0
+      if (this.amountArr.length > 0  && this.amountIndex === 0 && this.amountArr[0] === '0') {
+        // 第一个 0 ，后面继续输入0,则忽略，
+        if (type === '0') {
+          return
+        }
+        // 其它为数字的，则替换
+        let num = Number(type);
+        if (!isNaN(num)) {
+          this.amountArr[0] = type;
+          return;
+        }
+      }
 
 
       // 如果不存在金额，并且输入的是小数点，则增加零和小数点
