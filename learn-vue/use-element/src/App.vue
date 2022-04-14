@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <AmountInput />
+    <RemoteSearchSelect />
   </div>
 </template>
 
 <script>
-import AmountInput from "@/components/AmountInput";
+import RemoteSearchSelect from "@/components/RemoteSearchSelect";
 
 export default {
   name: 'App',
   components: {
-    AmountInput
+    RemoteSearchSelect
   }
 }
 </script>
