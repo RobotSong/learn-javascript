@@ -1,21 +1,27 @@
 <template>
   <div id="app">
-    <RemoteSearchSelect />
+    <GanttDemo />
   </div>
 </template>
 
 <script>
-import RemoteSearchSelect from "@/components/RemoteSearchSelect";
+import GanttDemo from "@/components/GanttDemo";
 
 export default {
   name: 'App',
   components: {
-    RemoteSearchSelect
+    GanttDemo
   }
 }
 </script>
 
 <style>
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -23,5 +29,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  height: 100%;
+  font-size: 16px;
 }
 </style>
