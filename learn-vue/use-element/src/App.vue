@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <GanttDemo />
+    <GanntElasticDemo />
   </div>
 </template>
 
 <script>
-import GanttDemo from "@/components/GanttDemo";
+import GanntElasticDemo from "@/components/GanntElasticDemo";
 
 export default {
   name: 'App',
   components: {
-    GanttDemo
+    GanntElasticDemo
   }
 }
 </script>
