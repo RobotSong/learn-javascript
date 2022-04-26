@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <GanntElasticDemo />
+    <RecurrentTableBug />
   </div>
 </template>
 
 <script>
-import GanntElasticDemo from "@/components/GanntElasticDemo";
+import RecurrentTableBug from "@/components/RecurrentTableBug";
 
 export default {
   name: 'App',
   components: {
-    GanntElasticDemo
+    RecurrentTableBug
   }
 }
 </script>
