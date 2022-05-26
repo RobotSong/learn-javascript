@@ -1,11 +1,11 @@
-import "./06-advanced.ts"
+import './symbol/symbol'
 
 let hello: string = "Hello, TypeScript";
 document.querySelectorAll(".app")[0].innerHTML = hello;
 
-let c: any = document.getElementById("myCanvas");
+let cancas: any = document.getElementById("myCanvas");
 
-let cxt: CanvasRenderingContext2D = c.getContext("2d");
+let cxt: CanvasRenderingContext2D = cancas.getContext("2d");
 
 var grd = cxt.createLinearGradient(0, 0, 175, 50);
 grd.addColorStop(0, "#FF0000");
