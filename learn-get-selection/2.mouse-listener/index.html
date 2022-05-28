@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <script type="text/javascript" src="./jquery.min.js"></script>
+    <style type="text/css">
+        .tooltip {
+            width: 219px;
+            height: 33px;
+        }
+
+        .tooltip a {
+            width: 219px;
+            height: 33px;
+            display: block;
+        }
+    </style>
+
+</head>
+<body>
+<!--在文章内添加 selected-article ID-->
+<div>
+<textarea cols="60" rows="8" id="selectedArticle">
+asp、php、asp.net、javascript、jquery、vbscript、dos
+</textarea>
+</div>
+<h1>等我DWQ</h1>
+<div style="position: relative;">
+    <button id="addTextNote" style="display: none;position: absolute;top: -20px">添加标注</button>
+    <div id="qwer">asp、php、<span style="color: rebeccapurple">asp.net、javascript、</span>vbscript、dos</div>
+</div>
+
+<h1>dqw</h1>
+
+<button onclick="clearListener()">清除监听</button>
+
+<script type="text/javascript">
+    // 获取选中的文本
+    function getSelectText() {
+        var txt = "";
+        if (document.selection) {
+            txt = document.selection.createRange().text;
+        } else {
+            txt = document.getSelection();
+            //txt = window.getSelection();
+        }
+        return $.trim(txt.toString());
+    }
+
+    function getPosition(e) {
+        var x = 15;
+        var y = 15;
+        var r = getSelectText();
+        if (r) {
+            var bowen = r.toString();
+            var tooltip = "<div id='tooltip' class='tooltip'><a href='javascript:void(0)' target='_blank'>" + bowen + "</a></div>";
+            $("body").append(tooltip);
+            $("#tooltip").css({
+                "top": (e.pageY + y) + "px",
+                "left": (e.pageX + x) + "px",
+                "position": "absolute"
+            }).show("fast");
+        }
+    }
+    // 1.实现一个防抖函数
+    function debounce(fn, wait){
+        let timer = null;
+        return function(){
+            if(timer !== null){
+                clearTimeout(timer);
+            }
+            timer = setTimeout(fn, wait);
+        }
+    }
+
+    function getSelection() {
+        if (document.selection) {
+            return document.selection;
+        } else {
+            return document.getSelection();
+        }
+    }
+
+    /**
+     * 获取 container 容器里面， 在 node 下的坐标
+     * @param container
+     * @param node
+     * @param initial
+     * @returns {*}
+     */
+    function getContainerInnerTextIndexByBackward(container, node, initial) {
+        let idx = initial; // 初始值
+        let cur = node;
+        // 下面*代表光标
+        /**
+         * <div><a>123</a>4*56</div> initial = 1
+         * <div><a>123</a><a>4*56</a></div> initial = 1
+         * <div>123<a>4*56</a></div> initial = 1
+         * <div>1234*56</div> initial = 4
+         */
+        while (cur !== container) {
+            Array.from(cur.parentNode.childNodes).find(child => {
+
+                if (child !== cur) {
+                    // 可能是element，可能是文本节点，需要注意
+                    const s = (child.innerText || child.data).length;
+                    idx += s;
+                }
+                return child === cur;
+            });
+            cur = cur.parentNode;
+        }
+        return idx;
+    }
+
+    function doAddTextNote() {
+        console.log('处理')
+        let range = getSelection().getRangeAt(0)
+        let node = document.getElementById('qwer');
+        // 判断 元素 是否是在 当前组件中
+        let startIndex;
+        console.log(node.getBoundingClientRect())
+        if (node.contains(range.startContainer)) {
+            startIndex = getContainerInnerTextIndexByBackward(node, range.startContainer, range.startOffset)
+        } else {
+            // 如果不在，从头开始就被选中了
+            startIndex = 0;
+        }
+        let endIndex;
+        if (node.contains(range.endContainer)) {
+            endIndex = getContainerInnerTextIndexByBackward(node, range.endContainer, range.endOffset)
+        } else {
+            // 如果不在，-1 则代表最后都被选中了
+            endIndex = -1;
+        }
+
+        // Range.commonAncestorContainer 返回完整包含 startContainer 和 endContainer 的、最深一级的节点
+        console.log('开始下标', startIndex, '结束下标', endIndex)
+        console.log('元素', range)
+        // 显示添加标注按钮
+        $('#addTextNote').css('display', 'block')
+    }
+    let doFn = debounce(doAddTextNote, 500)
+    let choseNote = false;
+    function selectionChange(e) {
+        console.log('event:', e)
+        // 是否选中 span 标签
+        let node = document.getElementById('qwer');
+        // 是否包含 qwer 标签
+        choseNote = getSelection().containsNode(node, true);
+        // 如果没选中，也关闭 添加标注 按钮
+        if (!choseNote) {
+            $('#addTextNote').css('display', 'none')
+        }
+    }
+
+
+
+    document.addEventListener('selectionchange', selectionChange);
+
+    document.addEventListener('mouseup', function () {
+        console.log('鼠标放上')
+        // 关闭添加标注显示
+        $('#addTextNote').css('display', 'none')
+        // 如果存在选中标注，则处理标注
+        if (choseNote) {
+            doAddTextNote()
+        }
+    });
+    function clearListener() {
+        console.log('清除监听')
+        document.removeEventListener('selectionchange', selectionChange)
+    }
+
+
+    window.onload = function () {
+        console.log('开启监事件')
+
+        //将该id下的文章，鼠标选中松开后弹窗
+        $('#selectedArticle').on({
+            mouseup: function (e) {
+                console.log('鼠标落下');
+                getPosition(e);
+            },
+            mousedown: function () {
+
+                console.log('鼠标放开');
+                $("#tooltip").remove();
+            }
+        })
+    }
+
+</script>
+</body>
+</html>
