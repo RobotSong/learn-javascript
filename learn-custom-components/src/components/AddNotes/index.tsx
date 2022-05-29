@@ -8,7 +8,7 @@ export type AddNotesProps = {
 
 export type Note = {
     // 主键
-    id: string;
+    key?: string;
     // 标注文字开始的位置
     from: number;
     // 标注文字结束的位置
@@ -41,6 +41,7 @@ const getContainerInnerTextIndexByBackward = (container: Node, node: Node, initi
         if (cur.parentNode == null) {
             return idx
         }
+        // eslint-disable-next-line no-loop-func
         Array.from(cur.parentNode.childNodes).find((child: any) => {
 
             if (child !== cur) {
@@ -113,7 +114,7 @@ const AddNotes: React.FC<AddNotesProps> = ({text, notes}) => {
             return
         }
         const newNote: Note = {
-            id: `addNote-${Math.random()}`,
+            key: `addNote-${Math.random()}`,
             from: startIndex,
             to: endIndex,
             text: ''
@@ -128,11 +129,22 @@ const AddNotes: React.FC<AddNotesProps> = ({text, notes}) => {
     }
 
     useEffect(() => {
-        if (notes.length > 0) {
-            // TODO 根据 from 排序
-            setNoteArr([...notes])
-        }
+        // 只加载一次
         document.addEventListener('mouseup', mouseup)
+        if (notes.length > 0) {
+            // 根据 from 排序
+            const newNoteArr: Note[] = []
+            for (let i = 0; i < notes.length; i++) {
+                const n = notes[i]
+                n.key = `note-${Math.random()}`
+                newNoteArr.push(n)
+            }
+            newNoteArr.sort((a: any, b: any) => {
+                return a.from - b.from
+            })
+            console.log('排序后的数组:', newNoteArr)
+            setNoteArr(newNoteArr)
+        }
         return () => {
             document.removeEventListener('mouseup', mouseup)
         }
@@ -165,10 +177,10 @@ const AddNotes: React.FC<AddNotesProps> = ({text, notes}) => {
         if (oprType === 2) {
             return <span key={`key-${Math.random()}`} className={'text-note'}
                          onClick={(event: any) => {
-                             if (note == null) {
+                             if (note === null || note.key === undefined) {
                                  return
                              }
-                             setEditId(note.id)
+                             setEditId(note.key)
                              setTextValue(note.text)
                              editNoteRef.current.style.top = (event.currentTarget.offsetTop - 55) + 'px'
                              editNoteRef.current.style.left = event.currentTarget.offsetLeft + 'px'
@@ -266,8 +278,7 @@ const AddNotes: React.FC<AddNotesProps> = ({text, notes}) => {
             } else if (note.from === n.from) {
                 isAdd = true
                 // 如果相等，则取 to 大的值
-                let to = note.to > n.to ? note.to : n.to
-                note.to = to
+                note.to = note.to > n.to ? note.to : n.to
                 note.text = n.text
                 newNoteArr.push(note)
             } else {
@@ -280,10 +291,12 @@ const AddNotes: React.FC<AddNotesProps> = ({text, notes}) => {
         setTextValue(note.text)
         setNote(null)
         setNoteArr(newNoteArr)
-        setEditId(note.id)
+        if (note.key !== undefined) {
+            setEditId(note.key)
+        }
         // 弹出 编辑框
         editNoteRef.current.style.display = 'block'
-        editNoteRef.current.style.top = addBtnRef.current.style.top
+        editNoteRef.current.style.top = (addBtnRef.current.offsetTop - 25) + 'px'
         editNoteRef.current.style.left = addBtnRef.current.style.left
         // 关闭
         addBtnRef.current.style.display = 'none'
@@ -306,7 +319,7 @@ const AddNotes: React.FC<AddNotesProps> = ({text, notes}) => {
                     const newNoteArr = []
                     for (let i = 0; i < noteArr.length; i++) {
                         const n = noteArr[i]
-                        if (n.id === editId) {
+                        if (n.key === editId) {
                             n.text = textValue
                         }
                         newNoteArr.push(n)
