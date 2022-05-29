@@ -164,10 +164,13 @@ asp、php、asp.net、javascript、jquery、vbscript、dos
         console.log('鼠标放上')
         // 关闭添加标注显示
         $('#addTextNote').css('display', 'none')
-        // 如果存在选中标注，则处理标注
-        if (choseNote) {
-            doAddTextNote()
-        }
+        // 等待 selectionchange 设置完成
+        setTimeout(function () {
+            // 如果存在选中标注，则处理标注
+            if (choseNote) {
+                doAddTextNote()
+            }
+        }, 10)
     });
     function clearListener() {
         console.log('清除监听')
