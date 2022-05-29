@@ -1,0 +1,21 @@
+
+.text-note {
+    text-decoration: underline wavy red;
+    cursor: pointer;
+}
+
+.text-note-box {
+    position: relative;
+}
+
+
+.add-note-btn {
+    position: absolute;
+    background: #eee5e5;
+    color: #2626b1;
+    border: 0;
+    padding: 5px 10px;
+    box-shadow: 2px 2px 1px #888888;
+    display: none;
+    top: -20px;
+}
