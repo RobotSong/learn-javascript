@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <script type="text/javascript">
+        window.addEventListener('message', function(event) {
+            if (event.data.localStorage) {
+                // 循环一个 对象
+                for (let key in event.data.localStorage) {
+                    localStorage.setItem(key, event.data.localStorage[key]);
+                }
+            }
+            console.log('success')
+            // 返回成功
+            event.source.postMessage({sendLocalStorageSuccess: true}, event.origin);
+        }, false);
+    </script>
+</head>
+<body>
+This page is for sharing localstorage.
+</body>
+</html>

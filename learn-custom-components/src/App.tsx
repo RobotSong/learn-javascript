@@ -1,12 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import AddNotesExample from "./example/AddNotes";
+import SendLocalStorageExample from "./example/SendLocalStorage";
 
 function App() {
   return (
     <div className="App">
-      <AddNotesExample />
+      <SendLocalStorageExample />
     </div>
   );
 }
