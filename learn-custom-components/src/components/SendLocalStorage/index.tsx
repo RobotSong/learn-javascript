@@ -2,6 +2,10 @@ import React, {useEffect, useRef} from 'react';
 
 export type SendProps = {
   url: string;
+  /**
+   * 是否开始发送
+   */
+  isStartSend: boolean;
   sendSuccessCall: () => void;
 }
 /**
@@ -19,6 +23,9 @@ const SendLocalStorage: React.FC<SendProps> = (props: SendProps) => {
   }
 
   useEffect(() => {
+    if (!frameRef.current) {
+      return
+    }
     // 如果 url 的域名和端口 ，跟现在的保持 一致，则不处理
     const myURL = new URL(props.url)
     if (window.location.hostname === myURL.hostname
@@ -38,14 +45,14 @@ const SendLocalStorage: React.FC<SendProps> = (props: SendProps) => {
     // 监听 frame 加载完成!
     if (frameRef.current.attachEvent){
       frameRef.current.attachEvent("onload", () => {
-        console.log('开始发送信息!')
+        console.log('开始发送LocalStorage信息!')
         // 发送所有的 localStorage 到 props.url 域名中
         frameRef.current.contentWindow.postMessage({localStorage: obj}, props.url)
       })
 
     } else {
       frameRef.current.onload = () => {
-        console.log('开始发送信息!')
+        console.log('开始发送LocalStorage信息!')
         frameRef.current.contentWindow.postMessage({localStorage: obj}, props.url)
       }
     }
@@ -66,7 +73,11 @@ const SendLocalStorage: React.FC<SendProps> = (props: SendProps) => {
 
   return (
     <div className="send-local-storage">
-      <iframe ref={frameRef} title="sendMessage" src={url()} style={{"display": "none"}} />
+      {
+        props.isStartSend ?
+          <iframe ref={frameRef} title="sendMessage" src={url()} style={{"display": "none"}} />
+          : null
+      }
     </div>
   )
 }
