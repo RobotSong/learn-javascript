@@ -1,11 +1,17 @@
 import React, {useEffect, useRef} from 'react';
 
 export type SendProps = {
+  /**
+   * 发送的 URL 前缀
+   */
   url: string;
   /**
    * 是否开始发送
    */
   isStartSend: boolean;
+  /**
+   * 发送成功回调的函数
+   */
   sendSuccessCall: () => void;
 }
 /**
@@ -31,6 +37,8 @@ const SendLocalStorage: React.FC<SendProps> = (props: SendProps) => {
     if (window.location.hostname === myURL.hostname
       && window.location.port === myURL.port) {
       console.log('域名和端口一致，不处理!')
+      // 域名和端口一致，也认为是发送成功
+      props.sendSuccessCall()
       return
     }
 
