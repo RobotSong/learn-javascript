@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>不使用伪元素，仅一层标签实现双层圆点效果</title>
+  <style>
+    .icon-dot {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        padding: 10px;
+        border: 10px solid;
+        border-radius: 50%;
+        background-color: currentColor;
+        background-clip: content-box;
+    }
+  </style>
+</head>
+<body>
+<div class="icon-dot">
+
+</div>
+</body>
+</html>
