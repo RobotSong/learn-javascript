@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>优雅增加点击区域之搜索框清除按钮</title>
+  <style>
+    input[type="search"] {
+        width: 200px;
+        height: 40px;
+        padding: 10px 40px 10px 10px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    .icon-clear {
+        width: 16px;
+        height: 16px;
+        /** 为了同一高度展示 */
+        line-height: 15px;
+        margin: 1px 0 0 -38px;
+        border: 11px solid transparent;
+        border-radius: 50%;
+        background-color: #999;
+        /** 背景缩小 */
+        background-clip: padding-box;
+        color: white;
+        position: absolute;
+        visibility: hidden;
+    }
+
+    .icon-clear:before {
+        content: "×";
+    }
+
+    input:valid + .icon-clear {
+        visibility: visible;
+    }
+
+    .demo {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        text-align: center;
+    }
+
+    /** 不显示搜索框自带的 x */
+    input::-webkit-search-cancel-button {
+        -webkit-appearance: none;
+    }
+    input::-ms-clear {
+        display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo">
+    <input id="search" type="search" value="我是初始值" required />
+    <label for="search" class="icon-clear"></label>
+  </div>
+
+  <script type="application/javascript">
+      var eleLabel = document.querySelector('label[for="search"]'),
+          eleSearch = document.getElementById('search');
+
+      if (eleLabel && eleSearch) {
+          eleLabel.onclick = function() {
+              eleSearch.value = '';
+          };
+      }
+
+  </script>
+</body>
+</html>
